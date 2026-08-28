@@ -4,6 +4,7 @@ Handles image loading, EXIF orientation correction, RGB conversion, and resizing
 """
 
 from pathlib import Path
+
 from PIL import Image, ImageOps
 
 from .config import COLOR_MODE, IMAGE_SIZE

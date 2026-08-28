@@ -8,9 +8,9 @@ Validates contract compliance for:
 """
 
 import json
-from pathlib import Path
-from PIL import Image
+
 import pytest
+from PIL import Image
 
 from preprocessing.config import (
     CLASS_NAMES,
@@ -20,7 +20,7 @@ from preprocessing.config import (
     SUPPORTED_EXTENSIONS,
 )
 from preprocessing.preprocessor import process_image
-from preprocessing.validator import is_supported_extension, validate_image
+from preprocessing.validator import validate_image
 
 
 def test_canonical_class_identifiers():

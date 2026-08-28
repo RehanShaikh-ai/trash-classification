@@ -65,4 +65,5 @@ line_length = 100
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = [".", "src"]
 addopts = "-ra -q"
