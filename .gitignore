@@ -1,6 +1,7 @@
 data/
 __pycache__/
 .ruff_cache/
+.vscode
 .pytest_cache/
 *.egg-info/
 *.pyc
