@@ -43,7 +43,7 @@ dev = [
 ]
 
 [project.urls]
-Repository = "https://github.com/"
+Repository = "https://github.com/RehanShaikh-ai/trash-classification"
 
 [tool.setuptools.packages.find]
 where = ["src"]
