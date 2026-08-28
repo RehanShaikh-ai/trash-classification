@@ -5,6 +5,7 @@ Ensures raw image dataset meets CONTRACT.md requirements before processing.
 
 from pathlib import Path
 from typing import Dict, List, Tuple
+
 from PIL import Image, ImageOps
 
 from .config import CLASS_NAMES, SUPPORTED_EXTENSIONS
@@ -31,7 +32,7 @@ def validate_image(file_path: Path) -> Tuple[bool, str | None]:
         with Image.open(file_path) as img:
             # Verify file integrity
             img.verify()
-        
+
         # Re-open after verify() to test conversion and loading
         with Image.open(file_path) as img:
             # Apply EXIF rotation if present to test orientation handling

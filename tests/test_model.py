@@ -8,31 +8,26 @@ Validates:
 - Evaluation metric calculation (CONTRACT.md Section 18)
 """
 
-import json
-from pathlib import Path
-from PIL import Image
 import pytest
 import torch
-from torch import nn
-from torch.utils.data import DataLoader, TensorDataset
-
+from PIL import Image
 from src.models.config import (
     CLASS_NAMES,
     CLASS_TO_IDX,
     IDX_TO_CLASS,
-    IMAGE_SIZE,
     NUM_CLASSES,
     ModelConfig,
 )
 from src.models.dataset import (
-    ContractImageFolder,
     get_eval_transforms,
     get_train_transforms,
 )
 from src.models.evaluate import evaluate_model
-from src.models.model import get_model, list_available_models
+from src.models.model import get_model
 from src.models.predict import predict
 from src.models.train_utils import load_checkpoint, save_checkpoint, save_model_artifact
+from torch import nn
+from torch.utils.data import DataLoader, TensorDataset
 
 
 def test_canonical_class_config():
@@ -150,7 +145,7 @@ def test_save_model_artifact(tmp_path):
 
 
 def test_evaluate_model_metrics():
-    """Test evaluate_model calculates accurate metrics, classification report, and confusion matrix."""
+    """Test evaluate_model calculates accurate metrics, report, and confusion matrix."""
     model = nn.Linear(10, 6)
     # Create synthetic dataset with known targets
     X = torch.randn(12, 10)

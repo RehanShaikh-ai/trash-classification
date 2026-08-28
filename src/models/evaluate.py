@@ -4,29 +4,27 @@ Follows Technical Interface Contract (CONTRACT.md Section 5.1 & Section 18).
 """
 
 import argparse
-from datetime import datetime
 import json
 import logging
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 
 import numpy as np
-from sklearn.metrics import classification_report, confusion_matrix
 import torch
-from torch import nn
-from tqdm import tqdm
-
+from sklearn.metrics import classification_report, confusion_matrix
 from src.models.config import (
     CLASS_NAMES,
     DEFAULT_ARCHITECTURE,
     DEFAULT_MODEL_PATH,
     METRICS_PATH,
-    NUM_CLASSES,
     TEST_DIR,
     get_default_device,
 )
-from src.models.dataset import get_eval_transforms, ContractImageFolder
+from src.models.dataset import ContractImageFolder, get_eval_transforms
 from src.models.model import get_model
+from torch import nn
+from tqdm import tqdm
 
 
 def evaluate_model(
@@ -230,12 +228,22 @@ def evaluate_checkpoint(
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Smart Waste Classification - Model Evaluation Script")
-    parser.add_argument("--model-path", type=Path, default=DEFAULT_MODEL_PATH, help="Path to saved model checkpoint")
-    parser.add_argument("--test-dir", type=Path, default=TEST_DIR, help="Path to test dataset directory")
-    parser.add_argument("--model", type=str, default=DEFAULT_ARCHITECTURE, help="Model architecture")
+    parser = argparse.ArgumentParser(
+        description="Smart Waste Classification - Model Evaluation Script"
+    )
+    parser.add_argument(
+        "--model-path", type=Path, default=DEFAULT_MODEL_PATH, help="Path to saved model checkpoint"
+    )
+    parser.add_argument(
+        "--test-dir", type=Path, default=TEST_DIR, help="Path to test dataset directory"
+    )
+    parser.add_argument(
+        "--model", type=str, default=DEFAULT_ARCHITECTURE, help="Model architecture"
+    )
     parser.add_argument("--batch-size", type=int, default=32, help="Batch size")
-    parser.add_argument("--output-json", type=Path, default=METRICS_PATH, help="Path to output metrics JSON")
+    parser.add_argument(
+        "--output-json", type=Path, default=METRICS_PATH, help="Path to output metrics JSON"
+    )
     args = parser.parse_args()
 
     evaluate_checkpoint(

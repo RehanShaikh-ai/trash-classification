@@ -7,19 +7,18 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Union
 
 import torch
-from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
-
 from src.models.config import (
     CLASS_NAMES,
     CLASS_TO_IDX,
     IMAGE_SIZE,
     NORM_MEAN,
     NORM_STD,
+    TEST_DIR,
     TRAIN_DIR,
     VAL_DIR,
-    TEST_DIR,
 )
+from torch.utils.data import DataLoader
+from torchvision import datasets, transforms
 
 
 def get_train_transforms(
@@ -70,8 +69,9 @@ class ContractImageFolder(datasets.ImageFolder):
         # Check that directories exist
         root_path = Path(directory)
         existing_dirs = {d.name for d in root_path.iterdir() if d.is_dir()}
-        
-        # Filter to only existing classes if subset (e.g. during minimal testing), but preserve canonical indices
+
+        # Filter to only existing classes if subset (e.g. during minimal testing),
+        # but preserve canonical indices
         active_classes = [c for c in classes if c in existing_dirs]
         return active_classes, class_to_idx
 

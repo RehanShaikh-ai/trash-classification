@@ -1,12 +1,12 @@
 """Dataset splitting and directory structure generator module.
-
-Performs stratified train/validation/test splitting and generates contract-compliant dataset structure.
+Performs stratified train/validation/test splitting for dataset structure.
 """
 
 import json
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List
+
 from sklearn.model_selection import train_test_split
 
 from .config import (
@@ -15,9 +15,9 @@ from .config import (
     IMAGE_SIZE,
     PROCESSED_DATA_DIR,
     RANDOM_SEED,
+    TEST_RATIO,
     TRAIN_RATIO,
     VAL_RATIO,
-    TEST_RATIO,
 )
 from .preprocessor import process_image
 
@@ -90,7 +90,7 @@ def build_processed_dataset(
     test_ratio: float = TEST_RATIO,
     random_seed: int = RANDOM_SEED,
 ) -> Dict:
-    """Process and save dataset into structured directory tree: data/{train,validation,test}/{class}/
+    """Process and save dataset into structured tree: data/{train,val,test}/{class}/.
 
     Also outputs dataset_info.json metadata file.
 

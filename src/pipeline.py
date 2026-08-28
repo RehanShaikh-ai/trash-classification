@@ -11,11 +11,11 @@ Usage:
 """
 
 import argparse
-from datetime import datetime
-import json
 import logging
-from pathlib import Path
 import sys
+from datetime import datetime
+from pathlib import Path
+
 from PIL import Image
 
 # Add project root to sys.path
@@ -23,25 +23,24 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.models.config import (
+from src.models.config import (  # noqa: E402
     CLASS_NAMES,
     DEFAULT_ARCHITECTURE,
     DEFAULT_MODEL_PATH,
     METRICS_PATH,
     ModelConfig,
-    get_default_device,
 )
-from src.models.evaluate import evaluate_checkpoint
-from src.models.predict import predict
-from src.models.train import run_training
-from src.preprocessing.config import (
+from src.models.evaluate import evaluate_checkpoint  # noqa: E402
+from src.models.predict import predict  # noqa: E402
+from src.models.train import run_training  # noqa: E402
+from src.preprocessing.config import (  # noqa: E402
     RANDOM_SEED,
+    TEST_RATIO,
     TRAIN_RATIO,
     VAL_RATIO,
-    TEST_RATIO,
 )
-from src.preprocessing.dataset_splitter import build_processed_dataset
-from src.preprocessing.validator import scan_dataset
+from src.preprocessing.dataset_splitter import build_processed_dataset  # noqa: E402
+from src.preprocessing.validator import scan_dataset  # noqa: E402
 
 
 def check_processed_data_ready(data_dir: Path) -> bool:
@@ -130,7 +129,7 @@ def run_pipeline(
             raise RuntimeError(f"No valid images found in {source_raw} to process!")
 
         print("Building stratified splits into data/train, data/validation, data/test...")
-        summary = build_processed_dataset(
+        build_processed_dataset(
             valid_files_by_class=valid_files,
             output_dir=dest_data_dir,
             class_names=CLASS_NAMES,
@@ -195,10 +194,10 @@ def run_pipeline(
         print(f"Actual Class      : {actual_class}")
         print(f"Predicted Output  : {prediction}")
 
-        assert "predicted_class" in prediction, "predict() output missing 'predicted_class'"
-        assert "confidence" in prediction, "predict() output missing 'confidence'"
-        assert prediction["predicted_class"] in CLASS_NAMES, f"Invalid class: {prediction['predicted_class']}"
-        assert 0.0 <= prediction["confidence"] <= 1.0, f"Invalid confidence: {prediction['confidence']}"
+        pred_cls = prediction.get("predicted_class")
+        conf = prediction.get("confidence")
+        assert pred_cls in CLASS_NAMES, f"Invalid class: {pred_cls}"
+        assert conf is not None and 0.0 <= conf <= 1.0, f"Invalid confidence: {conf}"
         print("[OK] Interface Contract Verification PASSED!")
     else:
         print("[!] No sample test image found for smoke test.")
@@ -215,13 +214,22 @@ def run_pipeline(
 
 def main():
     parser = argparse.ArgumentParser(description="Smart Waste Classification - End-to-End Pipeline")
-    parser.add_argument("--model", type=str, default=DEFAULT_ARCHITECTURE, help="Model architecture")
+    parser.add_argument(
+        "--model", type=str, default=DEFAULT_ARCHITECTURE, help="Model architecture"
+    )
     parser.add_argument("--epochs", type=int, default=5, help="Number of training epochs")
     parser.add_argument("--batch-size", type=int, default=32, help="DataLoader batch size")
     parser.add_argument("--lr", type=float, default=1e-4, help="Learning rate")
     parser.add_argument("--raw-dir", type=Path, default=None, help="Path to raw dataset directory")
-    parser.add_argument("--data-dir", type=Path, default=None, help="Path to destination processed data directory")
-    parser.add_argument("--force-preprocess", action="store_true", help="Force re-running preprocessing")
+    parser.add_argument(
+        "--data-dir",
+        type=Path,
+        default=None,
+        help="Path to destination processed data directory",
+    )
+    parser.add_argument(
+        "--force-preprocess", action="store_true", help="Force re-running preprocessing"
+    )
     parser.add_argument("--device", type=str, default=None, help="Device to use (cpu, cuda)")
     args = parser.parse_args()
 

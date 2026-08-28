@@ -12,11 +12,11 @@ from pathlib import Path
 from .config import (
     CLASS_NAMES,
     PROCESSED_DATA_DIR,
-    RAW_DATA_DIR,
     RANDOM_SEED,
+    RAW_DATA_DIR,
+    TEST_RATIO,
     TRAIN_RATIO,
     VAL_RATIO,
-    TEST_RATIO,
 )
 from .dataset_splitter import build_processed_dataset
 from .validator import scan_dataset
@@ -69,7 +69,9 @@ def main():
     for cls_name in CLASS_NAMES:
         valid_count = len(valid_files.get(cls_name, []))
         invalid_count = len(invalid_files.get(cls_name, []))
-        print(f"  Class '{cls_name:10s}': {valid_count:4d} valid images, {invalid_count:2d} corrupted/invalid")
+        print(
+            f"  Class '{cls_name:10s}': {valid_count:4d} valid, {invalid_count:2d} invalid"
+        )
 
     print(f"\nTotal Valid Images  : {total_valid}")
     print(f"Total Invalid/Corrupt: {total_invalid}")
@@ -80,7 +82,10 @@ def main():
 
     # 2. Preprocessing & Splitting
     print("\n[Step 2/3] Processing images and building stratified splits...")
-    print(f"Splits: Train ({TRAIN_RATIO*100:.0f}%), Validation ({VAL_RATIO*100:.0f}%), Test ({TEST_RATIO*100:.0f}%)")
+    print(
+        f"Splits: Train ({TRAIN_RATIO * 100:.0f}%), "
+        f"Val ({VAL_RATIO * 100:.0f}%), Test ({TEST_RATIO * 100:.0f}%)"
+    )
 
     summary = build_processed_dataset(
         valid_files_by_class=valid_files,

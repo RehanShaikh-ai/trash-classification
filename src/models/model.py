@@ -4,27 +4,29 @@ Follows Technical Interface Contract (CONTRACT.md Section 5).
 """
 
 from typing import Callable, Dict, Optional, Union
+
 import torch
+from src.models.config import DEFAULT_ARCHITECTURE, NUM_CLASSES, get_default_device
 from torch import nn
 from torchvision.models import (
-    ResNet18_Weights,
-    MobileNet_V2_Weights,
     EfficientNet_B0_Weights,
-    resnet18,
-    mobilenet_v2,
+    MobileNet_V2_Weights,
+    ResNet18_Weights,
     efficientnet_b0,
+    mobilenet_v2,
+    resnet18,
 )
-
-from src.models.config import NUM_CLASSES, DEFAULT_ARCHITECTURE, get_default_device
 
 _MODEL_BUILDERS: Dict[str, Callable] = {}
 
 
 def register(name: str):
     """Decorator to register a model architecture builder function."""
+
     def decorator(fn: Callable):
         _MODEL_BUILDERS[name.lower()] = fn
         return fn
+
     return decorator
 
 
@@ -71,8 +73,9 @@ def get_model(
     """
     key = name.lower()
     if key not in _MODEL_BUILDERS:
+        options = list(_MODEL_BUILDERS.keys())
         raise ValueError(
-            f"Unknown model architecture '{name}'. Supported options: {list(_MODEL_BUILDERS.keys())}"
+            f"Unknown model architecture '{name}'. Supported options: {options}"
         )
 
     if device is None:

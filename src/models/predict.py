@@ -6,10 +6,9 @@ predict(image: PIL.Image.Image) -> {"predicted_class": str, "confidence": float}
 
 from pathlib import Path
 from typing import Dict, List, Optional, Union
-from PIL import Image, ImageOps
-import torch
-from torch import nn
 
+import torch
+from PIL import Image, ImageOps
 from src.models.config import (
     CLASS_NAMES,
     DEFAULT_ARCHITECTURE,
@@ -22,6 +21,7 @@ from src.models.config import (
 )
 from src.models.dataset import get_eval_transforms
 from src.models.model import get_model
+from torch import nn
 
 # Global cached model singleton for efficient inference
 _CACHED_MODEL: Optional[nn.Module] = None
@@ -51,7 +51,9 @@ def load_inference_model(
     path = Path(model_path) if model_path else DEFAULT_MODEL_PATH
     if not path.exists():
         # Fallback to initialized model if artifact not yet saved on disk
-        model = get_model(name=architecture, num_classes=len(CLASS_NAMES), device=target_device, pretrained=True)
+        model = get_model(
+            name=architecture, num_classes=len(CLASS_NAMES), device=target_device, pretrained=True
+        )
         model.eval()
         _CACHED_MODEL = model
         _CACHED_DEVICE = target_device
@@ -64,10 +66,14 @@ def load_inference_model(
         arch = ckpt.get("architecture", architecture)
         _CACHED_CLASS_NAMES = ckpt.get("class_names", list(CLASS_NAMES))
         num_classes = ckpt.get("num_classes", len(_CACHED_CLASS_NAMES))
-        model = get_model(name=arch, num_classes=num_classes, device=target_device, pretrained=False)
+        model = get_model(
+            name=arch, num_classes=num_classes, device=target_device, pretrained=False
+        )
         model.load_state_dict(ckpt["model_state"])
     elif isinstance(ckpt, dict):
-        model = get_model(name=architecture, num_classes=len(CLASS_NAMES), device=target_device, pretrained=False)
+        model = get_model(
+            name=architecture, num_classes=len(CLASS_NAMES), device=target_device, pretrained=False
+        )
         model.load_state_dict(ckpt)
     else:
         model = ckpt

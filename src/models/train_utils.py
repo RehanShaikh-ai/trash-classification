@@ -6,10 +6,10 @@ Adheres to Technical Interface Contract (CONTRACT.md Section 7).
 import os
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Union
-import torch
-from torch import nn
 
-from src.models.config import CLASS_NAMES, IMAGE_SIZE, COLOR_MODE
+import torch
+from src.models.config import CLASS_NAMES, COLOR_MODE, IMAGE_SIZE
+from torch import nn
 
 
 def save_checkpoint(

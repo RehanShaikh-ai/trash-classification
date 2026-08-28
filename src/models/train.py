@@ -6,23 +6,19 @@ Follows Technical Interface Contract (CONTRACT.md Section 5 & 7).
 import argparse
 import logging
 from pathlib import Path
-import sys
 from typing import Dict, List, Optional, Tuple, Union
 
 import torch
-from torch import nn
-from tqdm import tqdm
-
 from src.models.config import (
-    CLASS_NAMES,
     DEFAULT_ARCHITECTURE,
-    DEFAULT_MODEL_PATH,
     LATEST_CHECKPOINT_PATH,
     ModelConfig,
     get_default_device,
 )
 from src.models.dataset import get_dataloaders
 from src.models.model import get_model
+from torch import nn
+from tqdm import tqdm
 
 
 def train_one_epoch_amp(
@@ -147,7 +143,9 @@ def run_training(
     target_device = device or get_default_device()
     logging.info(f"Target Device: {target_device}")
     logging.info(f"Architecture: {config.model_name}")
-    logging.info(f"Epochs: {config.num_epochs} | Batch Size: {config.batch_size} | LR: {config.learning_rate}")
+    logging.info(
+        f"Epochs: {config.num_epochs} | Batch: {config.batch_size} | LR: {config.learning_rate}"
+    )
 
     # Build DataLoaders
     loaders = get_dataloaders(
@@ -221,12 +219,18 @@ def run_training(
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Smart Waste Classification - Model Training Pipeline")
-    parser.add_argument("--model", type=str, default=DEFAULT_ARCHITECTURE, help="Model architecture")
+    parser = argparse.ArgumentParser(
+        description="Smart Waste Classification - Model Training Pipeline"
+    )
+    parser.add_argument(
+        "--model", type=str, default=DEFAULT_ARCHITECTURE, help="Model architecture"
+    )
     parser.add_argument("--epochs", type=int, default=10, help="Number of training epochs")
     parser.add_argument("--batch-size", type=int, default=32, help="DataLoader batch size")
     parser.add_argument("--lr", type=float, default=1e-4, help="Learning rate")
-    parser.add_argument("--data-dir", type=Path, default=None, help="Root directory containing split datasets")
+    parser.add_argument(
+        "--data-dir", type=Path, default=None, help="Root directory containing split datasets"
+    )
     parser.add_argument("--resume", action="store_true", help="Resume from latest checkpoint")
     args = parser.parse_args()
 

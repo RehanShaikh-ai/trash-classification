@@ -4,16 +4,15 @@ Supports resuming, mixed precision, lr scheduling, and contract artifact export.
 """
 
 import logging
-import os
 import shutil
 from pathlib import Path
 from typing import Dict, List, Optional, Union
-import torch
-from torch import nn
 
+import torch
 from src.models.config import CLASS_NAMES
-from src.models.train import train_one_epoch_amp, test_one_epoch
+from src.models.train import test_one_epoch, train_one_epoch_amp
 from src.models.train_utils import load_checkpoint, save_checkpoint, save_model_artifact
+from torch import nn
 
 
 def train(
@@ -72,7 +71,9 @@ def train(
                 scaler=scaler,
                 scheduler=scheduler,
             )
-            logging.info(f"Resumed from epoch {start_epoch - 1}, best acc: {best_test_acc * 100:.2f}%")
+            logging.info(
+                f"Resumed from epoch {start_epoch - 1}, best acc: {best_test_acc * 100:.2f}%"
+            )
         except Exception:
             logging.exception("[!] Could not load checkpoint. Starting from scratch.")
             start_epoch = 1
@@ -82,7 +83,7 @@ def train(
 
     if start_epoch > num_epochs:
         logging.warning(
-            f"Resumed epoch ({start_epoch}) is already > num_epochs ({num_epochs}). Nothing to train."
+            f"Resumed epoch ({start_epoch}) > num_epochs ({num_epochs}). Nothing to train."
         )
 
     train_losses, train_accs = [], []
@@ -125,7 +126,9 @@ def train(
         improved = test_acc > best_test_acc
         if improved:
             improvement = (test_acc - best_test_acc) * 100
-            logging.info(f"[+] Test accuracy improved by {improvement:.2f}% (New best: {test_acc * 100:.2f}%)")
+            logging.info(
+                f"[+] Test accuracy improved: +{improvement:.2f}% (Best: {test_acc * 100:.2f}%)"
+            )
             best_test_acc = test_acc
 
         save_checkpoint(
