@@ -1,0 +1,116 @@
+{
+  "timestamp": "2026-08-28T23:35:48.640386",
+  "total_samples": 383,
+  "overall_accuracy": 0.9008,
+  "average_loss": 0.3372,
+  "average_confidence": 0.9374,
+  "macro_avg": {
+    "precision": 0.8877,
+    "recall": 0.8827,
+    "f1_score": 0.8845
+  },
+  "weighted_avg": {
+    "precision": 0.9024,
+    "recall": 0.9008,
+    "f1_score": 0.9008
+  },
+  "per_class": {
+    "cardboard": {
+      "precision": 0.9821,
+      "recall": 0.9016,
+      "f1_score": 0.9402,
+      "support": 61
+    },
+    "glass": {
+      "precision": 0.9189,
+      "recall": 0.8947,
+      "f1_score": 0.9067,
+      "support": 76
+    },
+    "metal": {
+      "precision": 0.8769,
+      "recall": 0.9194,
+      "f1_score": 0.8976,
+      "support": 62
+    },
+    "paper": {
+      "precision": 0.8866,
+      "recall": 0.9556,
+      "f1_score": 0.9198,
+      "support": 90
+    },
+    "plastic": {
+      "precision": 0.9,
+      "recall": 0.863,
+      "f1_score": 0.8811,
+      "support": 73
+    },
+    "trash": {
+      "precision": 0.7619,
+      "recall": 0.7619,
+      "f1_score": 0.7619,
+      "support": 21
+    }
+  },
+  "confusion_matrix": [
+    [
+      55,
+      0,
+      1,
+      4,
+      1,
+      0
+    ],
+    [
+      0,
+      68,
+      5,
+      0,
+      3,
+      0
+    ],
+    [
+      0,
+      3,
+      57,
+      1,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      86,
+      2,
+      2
+    ],
+    [
+      0,
+      3,
+      1,
+      3,
+      63,
+      3
+    ],
+    [
+      1,
+      0,
+      1,
+      3,
+      0,
+      16
+    ]
+  ],
+  "class_names": [
+    "cardboard",
+    "glass",
+    "metal",
+    "paper",
+    "plastic",
+    "trash"
+  ],
+  "classification_report_text": "              precision    recall  f1-score   support\n\n   cardboard       0.98      0.90      0.94        61\n       glass       0.92      0.89      0.91        76\n       metal       0.88      0.92      0.90        62\n       paper       0.89      0.96      0.92        90\n     plastic       0.90      0.86      0.88        73\n       trash       0.76      0.76      0.76        21\n\n    accuracy                           0.90       383\n   macro avg       0.89      0.88      0.88       383\nweighted avg       0.90      0.90      0.90       383\n",
+  "model_path": "C:\\Users\\MUIN\\Desktop\\Ali\\trash-classification\\models\\waste_classifier.pth",
+  "architecture": "resnet18"
+}
