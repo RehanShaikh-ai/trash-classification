@@ -1,122 +1,78 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import { Navbar } from "./components/Navbar";
+import { HeroSection } from "./components/HeroSection";
+import { WasteClassifier } from "./components/WasteClassifier";
+import { CategoriesShowcase } from "./components/CategoriesShowcase";
+import { ApiContractModal } from "./components/ApiContractModal";
+import { Footer } from "./components/Footer";
 
-function App() {
-  const [count, setCount] = useState(0)
+export function App() {
+  const [isContractModalOpen, setIsContractModalOpen] = useState(false);
+  const [isMockMode, setIsMockMode] = useState(false);
+  const [apiConnected, setApiConnected] = useState(false);
+
+  // Probe local Flask API server on mount
+  useEffect(() => {
+    const checkBackend = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/predict", {
+          method: "POST",
+          // Empty payload to check reachability
+        });
+        if (res.status === 400 || res.status === 200) {
+          setApiConnected(true);
+        } else {
+          setApiConnected(false);
+        }
+      } catch {
+        setApiConnected(false);
+      }
+    };
+    checkBackend();
+  }, []);
+
+  const scrollToClassifier = () => {
+    const el = document.getElementById("classifier");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="min-h-screen w-full bg-[#080c14] text-[#e7e4de] flex flex-col items-center selection:bg-[#d4a14a]/30 selection:text-white cyber-grid">
+      {/* Floating Navbar */}
+      <Navbar
+        onOpenContractModal={() => setIsContractModalOpen(true)}
+        isMockMode={isMockMode}
+        setIsMockMode={setIsMockMode}
+        apiConnected={apiConnected}
+      />
 
-      <div className="ticks"></div>
+      {/* Hero Section */}
+      <HeroSection onStartClick={scrollToClassifier} />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      {/* Interactive Classifier Section */}
+      <main className="w-full max-w-6xl px-4 sm:px-8 z-10 relative -mt-8 sm:-mt-16 pb-12">
+        <WasteClassifier
+          isMockMode={isMockMode}
+          onOpenContractModal={() => setIsContractModalOpen(true)}
+          setApiConnected={setApiConnected}
+        />
+      </main>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      {/* Canonical Categories Taxonomy Showcase */}
+      <CategoriesShowcase />
+
+      {/* Technical Contract Inspector Modal */}
+      <ApiContractModal
+        isOpen={isContractModalOpen}
+        onClose={() => setIsContractModalOpen(false)}
+      />
+
+      {/* Editorial Footer */}
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;

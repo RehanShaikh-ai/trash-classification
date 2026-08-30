@@ -1,111 +1,180 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Instrument Serif", "Cormorant Garamond", Georgia, serif;
+  --font-cormorant: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  color-scheme: dark;
+  --velorah-deep: #080d19;
+  --velorah-night: #0e172a;
+  --velorah-blue: #162544;
+  --velorah-lavender: #8c82b5;
+  --velorah-rose: #eaa7a3;
+  --velorah-peach: #fcd5b5;
+  --velorah-sand: #dcc5cd;
+  --velorah-text: #ffffff;
+  --velorah-muted: rgba(255, 255, 255, 0.75);
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+  --glass-bg: rgba(22, 37, 68, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-border-hover: rgba(234, 167, 163, 0.45);
+  --glass-glow: rgba(234, 167, 163, 0.2);
 }
 
 body {
   margin: 0;
+  background-color: var(--velorah-deep);
+  color: var(--velorah-text);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  font-feature-settings: "rlig" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+/* Velorah Signature Liquid Glass */
+.velorah-glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+.velorah-glass:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 12px 36px 0 rgba(234, 167, 163, 0.15), inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.velorah-card {
+  background: linear-gradient(145deg, rgba(22, 37, 68, 0.55) 0%, rgba(14, 23, 42, 0.75) 100%);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(220, 197, 205, 0.22);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.velorah-pill {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.velorah-pill:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(234, 167, 163, 0.5);
+  box-shadow: 0 6px 24px rgba(234, 167, 163, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.velorah-btn-primary {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(234, 167, 163, 0.25) 50%, rgba(140, 130, 181, 0.2) 100%);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(234, 167, 163, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.velorah-btn-primary:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgba(234, 167, 163, 0.38) 50%, rgba(140, 130, 181, 0.3) 100%);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 12px 40px rgba(234, 167, 163, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+/* Sunset Rose Gradient Text */
+.velorah-gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, #fdeed9 40%, #eaa7a3 80%, #dcc5cd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Scanning Beam Animation in Velorah Rose */
+@keyframes velorahLaser {
+  0% {
+    top: 0%;
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 98%;
+    opacity: 0.7;
   }
 }
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+
+.velorah-scanner-laser {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #eaa7a3, #ffffff, #eaa7a3, transparent);
+  box-shadow: 0 0 15px 3px rgba(234, 167, 163, 0.9), 0 0 30px 6px rgba(252, 213, 181, 0.5);
+  animation: velorahLaser 2.2s ease-in-out infinite alternate;
+  z-index: 20;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
+/* HUD Corner Brackets in Sunset Rose */
+.hud-corner-tl {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 16px;
+  height: 16px;
+  border-top: 2px solid #eaa7a3;
+  border-left: 2px solid #eaa7a3;
+}
+.hud-corner-tr {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  border-top: 2px solid #eaa7a3;
+  border-right: 2px solid #eaa7a3;
+}
+.hud-corner-bl {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 16px;
+  height: 16px;
+  border-bottom: 2px solid #eaa7a3;
+  border-left: 2px solid #eaa7a3;
+}
+.hud-corner-br {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  border-bottom: 2px solid #eaa7a3;
+  border-right: 2px solid #eaa7a3;
+}
+
+/* Dreamy Star & Light Glow Backgrounds */
+.dream-clouds {
+  background: radial-gradient(circle at 50% 20%, rgba(140, 130, 181, 0.15) 0%, transparent 60%),
+              radial-gradient(circle at 80% 60%, rgba(234, 167, 163, 0.12) 0%, transparent 50%),
+              radial-gradient(circle at 20% 70%, rgba(35, 65, 104, 0.3) 0%, transparent 60%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #080d19;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(220, 197, 205, 0.25);
   border-radius: 4px;
-  color: var(--text-h);
 }
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(234, 167, 163, 0.5);
 }
