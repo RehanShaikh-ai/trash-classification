@@ -39,43 +39,37 @@ const SAMPLE_PRESETS: SampleItem[] = [
     name: "Plastic Bottle",
     category: "plastic",
     label: "Plastic (PET)",
-    imageUrl:
-      "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "/samples/plastic.jpg",
   },
   {
     name: "Cardboard Box",
     category: "cardboard",
     label: "Cardboard",
-    imageUrl:
-      "https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "/samples/cardboard.jpg",
   },
   {
     name: "Aluminum Can",
     category: "metal",
     label: "Metal",
-    imageUrl:
-      "https://images.unsplash.com/photo-1581781870027-04212e231e96?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "/samples/metal.jpg",
   },
   {
     name: "Glass Bottle",
     category: "glass",
     label: "Glass",
-    imageUrl:
-      "https://images.unsplash.com/photo-1605600659908-0ef719419d41?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "/samples/glass.jpg",
   },
   {
     name: "Newspaper Stack",
     category: "paper",
     label: "Paper",
-    imageUrl:
-      "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "/samples/paper.jpg",
   },
   {
-    name: "Organic Trash",
+    name: "General Waste",
     category: "trash",
     label: "General Trash",
-    imageUrl:
-      "https://images.unsplash.com/photo-1604187351574-c75ca79f5807?auto=format&fit=crop&w=600&q=80",
+    imageUrl: "/samples/trash.jpg",
   },
 ];
 
