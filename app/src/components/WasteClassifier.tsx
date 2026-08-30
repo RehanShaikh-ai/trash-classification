@@ -231,24 +231,53 @@ export const WasteClassifier: React.FC<WasteClassifierProps> = ({
     setErrorMessage(null);
     setPrediction(null);
 
-    // Section 14: Mock Mode Simulation
+    // Section 14: Mock Mode Simulation (Deterministic & keyword-aware for realistic testing)
     if (isMockMode) {
       setTimeout(() => {
         setIsLoading(false);
-        let targetClass = "plastic";
+        const canonicalClasses = ["cardboard", "glass", "metal", "paper", "plastic", "trash"] as const;
+        let targetClass: "cardboard" | "glass" | "metal" | "paper" | "plastic" | "trash" = "plastic";
+
+        // 1. If preset was clicked
         if (activeSample) {
           const found = SAMPLE_PRESETS.find((s) => s.name === activeSample);
           if (found) targetClass = found.category;
+        } else if (selectedFile) {
+          // 2. Keyword detection on uploaded filename
+          const name = selectedFile.name.toLowerCase();
+          if (/cardboard|box|carton|package/i.test(name)) {
+            targetClass = "cardboard";
+          } else if (/glass|wine|jar|beer/i.test(name)) {
+            targetClass = "glass";
+          } else if (/metal|can|aluminum|tin|soda|coke|foil/i.test(name)) {
+            targetClass = "metal";
+          } else if (/paper|news|sheet|doc|book|mag/i.test(name)) {
+            targetClass = "paper";
+          } else if (/trash|waste|garbage|organic|dirty|food/i.test(name)) {
+            targetClass = "trash";
+          } else if (/plastic|bottle|pet|poly|bag/i.test(name)) {
+            targetClass = "plastic";
+          } else {
+            // 3. Deterministic hash based on file metadata so different images yield different classes
+            let hash = 0;
+            const seed = selectedFile.name + selectedFile.size + selectedFile.lastModified;
+            for (let i = 0; i < seed.length; i++) {
+              hash = (hash << 5) - hash + seed.charCodeAt(i);
+              hash |= 0;
+            }
+            const idx = Math.abs(hash) % canonicalClasses.length;
+            targetClass = canonicalClasses[idx];
+          }
         }
 
-        const simulatedConfidence = parseFloat((0.88 + Math.random() * 0.11).toFixed(2));
+        const simulatedConfidence = parseFloat((0.88 + (Math.abs(selectedFile?.size || 42) % 11) * 0.01).toFixed(2));
 
         // Strict Contract Output Schema
         setPrediction({
           predicted_class: targetClass,
           confidence: simulatedConfidence,
         });
-      }, 750);
+      }, 700);
       return;
     }
 
