@@ -22,14 +22,10 @@ classifiers = [
 ]
 dependencies = [
     "numpy",
-    "pandas",
-    "matplotlib",
-    "opencv-python",
     "pillow",
     "scikit-learn",
     "torch",
     "torchvision",
-    "streamlit",
     "flask",
     "flask-cors",
     "tqdm",

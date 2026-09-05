@@ -51,13 +51,12 @@ The project will primarily explore **transfer learning**, using a pretrained com
 ## Tech Stack
 
 * Python
-* PyTorch / TensorFlow
-* OpenCV
+* PyTorch / Torchvision
+* Scikit-Learn
 * NumPy
-* Pandas
-* Matplotlib
-* Streamlit
-* Git & GitHub
+* Flask
+* React & Vite (Frontend)
+* Docker & Docker Compose
 
 ## Project Structure
 
@@ -65,15 +64,16 @@ The project will primarily explore **transfer learning**, using a pretrained com
 smart-waste-classification/
 │
 ├── data/
-├── notebooks/
+├── models/
 ├── src/
 │   ├── preprocessing/
 │   ├── models/
-│   └── utils/
+│   └── api.py
 │
-├── app/
+├── app/                  # React/Vite Frontend
 ├── tests/
-├── requirements.txt
+├── pyproject.toml
+├── compose.yaml          # Docker Compose configuration
 └── README.md
 ```
 
@@ -99,6 +99,6 @@ Each major component will be developed in a separate feature branch to practice 
 
 ## Current Status
 
-🚧 **Project initialization**
+✅ **Full-stack integration complete**
 
-The dataset, model architecture, evaluation strategy, and application interface are yet to be finalized.
+The data pipeline, model training logic, Flask backend API, and React frontend are implemented. The entire application can be launched locally for development and preview using Docker Compose.

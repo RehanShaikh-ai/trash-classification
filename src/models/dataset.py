@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Union
 
 import torch
+# pyrefly: ignore [missing-import]
 from src.models.config import (
     CLASS_NAMES,
     CLASS_TO_IDX,
