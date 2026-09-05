@@ -9,6 +9,7 @@ from typing import Dict, List, Optional, Union
 
 import torch
 from PIL import Image, ImageOps
+# pyrefly: ignore [missing-import]
 from src.models.config import (
     CLASS_NAMES,
     DEFAULT_ARCHITECTURE,
@@ -19,7 +20,9 @@ from src.models.config import (
     NORM_STD,
     get_default_device,
 )
+# pyrefly: ignore [missing-import]
 from src.models.dataset import get_eval_transforms
+# pyrefly: ignore [missing-import]
 from src.models.model import get_model
 from torch import nn
 

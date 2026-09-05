@@ -6,6 +6,7 @@ Follows Technical Interface Contract (CONTRACT.md Section 5).
 from typing import Callable, Dict, Optional, Union
 
 import torch
+# pyrefly: ignore [missing-import]
 from src.models.config import DEFAULT_ARCHITECTURE, NUM_CLASSES, get_default_device
 from torch import nn
 from torchvision.models import (

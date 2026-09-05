@@ -4,6 +4,7 @@ Provides model definitions, training loops, evaluation metrics, and inference in
 as specified in CONTRACT.md.
 """
 
+# pyrefly: ignore [missing-import]
 from src.models.config import (
     CLASS_NAMES,
     COLOR_MODE,
@@ -11,10 +12,15 @@ from src.models.config import (
     NUM_CLASSES,
     ModelConfig,
 )
+# pyrefly: ignore [missing-import]
 from src.models.evaluate import evaluate_checkpoint, evaluate_model
+# pyrefly: ignore [missing-import]
 from src.models.model import get_model, list_available_models
+# pyrefly: ignore [missing-import]
 from src.models.predict import load_inference_model, predict
+# pyrefly: ignore [missing-import]
 from src.models.train import run_training
+# pyrefly: ignore [missing-import]
 from src.models.train_loop import train
 
 __all__ = [

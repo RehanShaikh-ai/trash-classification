@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Union
 
 import torch
+# pyrefly: ignore [missing-import]
 from src.models.config import CLASS_NAMES, COLOR_MODE, IMAGE_SIZE
 from torch import nn
 

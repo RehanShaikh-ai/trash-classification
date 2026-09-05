@@ -11,6 +11,7 @@ Validates:
 import pytest
 import torch
 from PIL import Image
+# pyrefly: ignore [missing-import]
 from src.models.config import (
     CLASS_NAMES,
     CLASS_TO_IDX,
@@ -18,13 +19,18 @@ from src.models.config import (
     NUM_CLASSES,
     ModelConfig,
 )
+# pyrefly: ignore [missing-import]
 from src.models.dataset import (
     get_eval_transforms,
     get_train_transforms,
 )
+# pyrefly: ignore [missing-import]
 from src.models.evaluate import evaluate_model
+# pyrefly: ignore [missing-import]
 from src.models.model import get_model
+# pyrefly: ignore [missing-import]
 from src.models.predict import predict
+# pyrefly: ignore [missing-import]
 from src.models.train_utils import load_checkpoint, save_checkpoint, save_model_artifact
 from torch import nn
 from torch.utils.data import DataLoader, TensorDataset

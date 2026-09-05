@@ -13,6 +13,7 @@ from typing import Dict, List, Optional, Union
 import numpy as np
 import torch
 from sklearn.metrics import classification_report, confusion_matrix
+# pyrefly: ignore [missing-import]
 from src.models.config import (
     CLASS_NAMES,
     DEFAULT_ARCHITECTURE,
@@ -21,7 +22,9 @@ from src.models.config import (
     TEST_DIR,
     get_default_device,
 )
+# pyrefly: ignore [missing-import]
 from src.models.dataset import ContractImageFolder, get_eval_transforms
+# pyrefly: ignore [missing-import]
 from src.models.model import get_model
 from torch import nn
 from tqdm import tqdm
