@@ -30,6 +30,9 @@ dependencies = [
     "torch",
     "torchvision",
     "streamlit",
+    "flask",
+    "flask-cors",
+    "tqdm",
 ]
 
 [project.optional-dependencies]
