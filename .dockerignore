@@ -1,0 +1,9 @@
+.git
+.venv
+.pytest_cache
+data/
+models/
+__pycache__/
+*.pyc
+app/node_modules
+smart_waste_classification.egg-info

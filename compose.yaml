@@ -1,0 +1,28 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./src:/app/src
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+
+  frontend:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./app/src:/usr/src/app/src
+      - ./app/public:/usr/src/app/public
+      - ./app/index.html:/usr/src/app/index.html
+      - ./app/vite.config.ts:/usr/src/app/vite.config.ts
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
